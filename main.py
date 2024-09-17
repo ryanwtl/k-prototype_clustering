@@ -1,7 +1,7 @@
 # Install necessary libraries
-!pip install kmodes
-!pip install ipywidgets
-!pip install plotly
+pip install kmodes
+pip install ipywidgets
+pip install plotly
 
 # Import required libraries
 import numpy as np
@@ -15,7 +15,7 @@ from sklearn.metrics import silhouette_score
 sns.set_style('whitegrid')
 
 # Load the dataset
-df = pd.read_csv(r'/content/drive/MyDrive/Y2S2/ML/Dataset/netflix.csv')
+df = pd.read_csv(r'netflix.csv')
 
 # Rename columns for better readability
 df.rename(columns={
