@@ -98,41 +98,49 @@ def kproto_clustering(movie_clusters=3, tv_show_clusters=4):
 interact(kproto_clustering, movie_clusters=(2, 10), tv_show_clusters=(2, 10))
 
 # --------------------- Genre Analysis for Movies ---------------------
-# Group by Cluster and Genres to count movies for each genre within each cluster
-genre_cluster_counts = movie_df.groupby(['Cluster', 'Genres']).size().reset_index(name='Count')
+# Make sure 'Cluster' and 'Genres' columns exist
+if 'Cluster' in movie_df.columns and 'Genres' in movie_df.columns:
+    # Group by Cluster and Genres to count movies for each genre within each cluster
+    genre_cluster_counts = movie_df.groupby(['Cluster', 'Genres']).size().reset_index(name='Count')
 
-# Sort the data by the count of movies
-genre_cluster_counts = genre_cluster_counts.sort_values(by='Count', ascending=False)
+    # Sort the data by the count of movies
+    genre_cluster_counts = genre_cluster_counts.sort_values(by='Count', ascending=False)
 
-# Filter to keep only the top N genres in each cluster (for example, top 10 genres per cluster)
-top_genres_per_cluster = genre_cluster_counts.groupby('Cluster').head(10)
+    # Filter to keep only the top N genres in each cluster (for example, top 10 genres per cluster)
+    top_genres_per_cluster = genre_cluster_counts.groupby('Cluster').head(10)
 
-# Plot the popularity of genres within each cluster using a bar plot
-plt.figure(figsize=(14, 8))
-sns.barplot(data=top_genres_per_cluster, x='Count', y='Genres', hue='Cluster', palette='viridis')
-plt.title('Top Genres by Number of Movies in Each Cluster')
-plt.xlabel('Number of Movies')
-plt.ylabel('Genres')
-plt.legend(title='Cluster')
-plt.tight_layout()
-plt.show()
+    # Plot the popularity of genres within each cluster using a bar plot
+    plt.figure(figsize=(14, 8))
+    sns.barplot(data=top_genres_per_cluster, x='Count', y='Genres', hue='Cluster', palette='viridis')
+    plt.title('Top Genres by Number of Movies in Each Cluster')
+    plt.xlabel('Number of Movies')
+    plt.ylabel('Genres')
+    plt.legend(title='Cluster')
+    plt.tight_layout()
+    plt.show()
+else:
+    print("Either 'Cluster' or 'Genres' column is missing in movie_df")
 
 # --------------------- Genre Analysis for TV Shows ---------------------
-# Group by Cluster and Genres to count TV shows for each genre within each cluster
-tv_genre_cluster_counts = tv_show_df.groupby(['Cluster', 'Genres']).size().reset_index(name='Count')
+# Make sure 'Cluster' and 'Genres' columns exist
+if 'Cluster' in tv_show_df.columns and 'Genres' in tv_show_df.columns:
+    # Group by Cluster and Genres to count TV shows for each genre within each cluster
+    tv_genre_cluster_counts = tv_show_df.groupby(['Cluster', 'Genres']).size().reset_index(name='Count')
 
-# Sort the data by the count of TV shows
-tv_genre_cluster_counts = tv_genre_cluster_counts.sort_values(by='Count', ascending=False)
+    # Sort the data by the count of TV shows
+    tv_genre_cluster_counts = tv_genre_cluster_counts.sort_values(by='Count', ascending=False)
 
-# Filter to keep only the top N genres in each cluster (for example, top 10 genres per cluster)
-top_tv_genres_per_cluster = tv_genre_cluster_counts.groupby('Cluster').head(10)
+    # Filter to keep only the top N genres in each cluster (for example, top 10 genres per cluster)
+    top_tv_genres_per_cluster = tv_genre_cluster_counts.groupby('Cluster').head(10)
 
-# Plot the popularity of genres within each cluster using a bar plot
-plt.figure(figsize=(14, 8))
-sns.barplot(data=top_tv_genres_per_cluster, x='Count', y='Genres', hue='Cluster', palette='viridis')
-plt.title('Top Genres by Number of TV Shows in Each Cluster')
-plt.xlabel('Number of TV Shows')
-plt.ylabel('Genres')
-plt.legend(title='Cluster')
-plt.tight_layout()
-plt.show()
+    # Plot the popularity of genres within each cluster using a bar plot
+    plt.figure(figsize=(14, 8))
+    sns.barplot(data=top_tv_genres_per_cluster, x='Count', y='Genres', hue='Cluster', palette='viridis')
+    plt.title('Top Genres by Number of TV Shows in Each Cluster')
+    plt.xlabel('Number of TV Shows')
+    plt.ylabel('Genres')
+    plt.legend(title='Cluster')
+    plt.tight_layout()
+    plt.show()
+else:
+    print("Either 'Cluster' or 'Genres' column is missing in tv_show_df")
