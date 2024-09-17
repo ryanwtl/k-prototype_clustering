@@ -1,8 +1,3 @@
-# Install necessary libraries
-pip install kmodes
-pip install ipywidgets
-pip install plotly
-
 # Import required libraries
 import numpy as np
 import pandas as pd
