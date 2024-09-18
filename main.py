@@ -105,13 +105,18 @@ if uploaded_file is not None:
     movie_calinski_harabasz_score = calinski_harabasz_score(movie_data_kproto, movie_clusters_result)
     tv_show_calinski_harabasz_score = calinski_harabasz_score(tv_show_data_kproto, tv_show_clusters_result)
 
-    # Display metrics
-    st.write(f"Silhouette Score for Movie Clusters: {movie_silhouette_score:.2f}")
-    st.write(f"Silhouette Score for TV Show Clusters: {tv_show_silhouette_score:.2f}")
-    st.write(f"Davies-Bouldin Index for Movie Clusters: {movie_davies_bouldin_score:.2f}")
-    st.write(f"Davies-Bouldin Index for TV Show Clusters: {tv_show_davies_bouldin_score:.2f}")
-    st.write(f"Calinski-Harabasz Index for Movie Clusters: {movie_calinski_harabasz_score:.2f}")
-    st.write(f"Calinski-Harabasz Index for TV Show Clusters: {tv_show_calinski_harabasz_score:.2f}")
+    # Create a DataFrame for score comparison
+    scores = {
+        "Metric": ["Silhouette Score", "Davies-Bouldin Index", "Calinski-Harabasz Index"],
+        "Movies": [movie_silhouette_score, movie_davies_bouldin_score, movie_calinski_harabasz_score],
+        "TV Shows": [tv_show_silhouette_score, tv_show_davies_bouldin_score, tv_show_calinski_harabasz_score]
+    }
+    
+    scores_df = pd.DataFrame(scores)
+
+    # Display the comparison table
+    st.subheader("Clustering Performance Comparison")
+    st.table(scores_df)
 
     # Genre Analysis
     # Movie genre analysis
